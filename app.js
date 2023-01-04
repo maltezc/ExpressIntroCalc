@@ -8,9 +8,17 @@ const { NotFoundError } = require("./expressError");
 
 const MISSING = "Expected key `nums` with comma-separated list of numbers.";
 
+// import stats functions
+const {findMean, findMedian, findMode} = require('./stats')
+const {convertStrNums} = require("./utils")
+
 
 /** Finds mean of nums in qs: returns {operation: "mean", result } */
-
+app.get("/mean", function (req, res) {
+  const convertedNums = convertStrNums(req.query.nums);
+  const meanResult = findMean(convertedNums);
+  return res.json({response: {operation: "mean", value: meanResult}});
+})
 
 /** Finds median of nums in qs: returns {operation: "median", result } */
 
